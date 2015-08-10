@@ -27,7 +27,7 @@ const logger = loggers.get('namespace');
 logger.info('Hello %s!', 'world');
 ```
 
-- `createLoggers()` takes a minimum logging `level`, which is one of: `['info', 'warn', 'error']` and defaults to `info`
+- `createLoggers()` takes a minimum logging `level`, which is one of: `['info', 'warn', 'error']` and defaults to `info`. For example if you select `warn`, all `info` logs will be ignored. `warn` and `error` logs will be displayed.
 
 
 ## License
