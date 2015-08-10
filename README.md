@@ -3,7 +3,8 @@
 
 
 Minimal namespaced stdout / stderr logger with a timestamp for the browser and Node.js.
-Satisfies three requirements below and attempts to do nothing else:
+
+The logger satisfies three requirements below and attempts to do nothing else:
 
 1. Is small: has no dependencies & <50 loc (for the browser)
 2. Has a timestamp
