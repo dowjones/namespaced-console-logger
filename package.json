@@ -1,0 +1,36 @@
+{
+  "name": "namespaced-console-logger",
+  "version": "1.0.0",
+  "description": "Small namespaced stdout / stderr logger with a timestamp for the browser and Node.js",
+  "keywords": [
+    "console",
+    "namespace",
+    "timestamp",
+    "logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dowjones/namespaced-console-logger.git"
+  },
+  "main": "lib/index",
+  "author": "nemtsov@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "babel --loose all src -d lib",
+    "lint": "eslint src test",
+    "test": "sh -c 'npm run lint && npm run test-cover && npm run test-cover-check'",
+    "test-cover": "istanbul cover _mocha -- -r should --recursive --compilers js:babel/register",
+    "test-cover-check": "istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
+    "test-watch": "mocha -G -r should --recursive -w -R min -t 200 --compilers js:babel/register"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "^5.6.23",
+    "babel-eslint": "^3.1.23",
+    "eslint": "^0.24.1",
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
+    "should": "^7.0.2",
+    "sinon": "^1.15.4"
+  }
+}
