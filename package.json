@@ -1,6 +1,6 @@
 {
   "name": "namespaced-console-logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Small namespaced stdout / stderr logger with a timestamp for the browser and Node.js",
   "keywords": [
     "console",
