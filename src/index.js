@@ -27,13 +27,12 @@ function createGet(enabled, disabled) {
 }
 
 function create(namespace, level) {
-  const prefix = [
-    new Date().toISOString(),
-    '(' + namespace + ')',
-    level.toUpperCase()
-  ].join(' ') + ':';
-
   return function () {
+    const prefix = [
+      new Date().toISOString(),
+      '(' + namespace + ')',
+      level.toUpperCase()
+    ].join(' ') + ':';
     const args = slice.call(arguments);
     if (typeof args[0] === 'string') args[0] = prefix + ' ' + args[0];
     else args.unshift(prefix);
