@@ -97,7 +97,7 @@ describe('namespaced-console-logger', () => {
 
   describe('with prefixes', () => {
     it('should info log with timestamp and namespace and single prefixe', () => {
-      let logger = createLoggers('info', { prefixes: [ 'prefix' ] }).get('nsp')
+      let logger = createLoggers('info', {prefixes: [ 'prefix' ]}).get('nsp')
       logger.info('i');
       infoStub.calledOnce.should.be.ok();
       infoStub.firstCall.args[0].should
@@ -105,7 +105,7 @@ describe('namespaced-console-logger', () => {
     });
 
     it('should info log with timestamp and namespace and multiple prefixes', () => {
-      let logger = createLoggers('info', { prefixes: [ 'prefix1', 'prefixes2' ] }).get('nsp')
+      let logger = createLoggers('info', {prefixes: [ 'prefix1', 'prefixes2' ]}).get('nsp')
       logger.info('i');
       infoStub.calledOnce.should.be.ok();
       infoStub.firstCall.args[0].should
@@ -121,7 +121,7 @@ describe('namespaced-console-logger', () => {
     });
 
     it('should info log with timestamp and namespace and no prefixes', () => {
-      let logger = createLoggers('info', { }).get('nsp')
+      let logger = createLoggers('info', {}).get('nsp')
       logger.info('i');
       infoStub.calledOnce.should.be.ok();
       infoStub.firstCall.args[0].should
@@ -129,7 +129,7 @@ describe('namespaced-console-logger', () => {
     });
 
     it('should info log with timestamp and namespace and invalid prefixes', () => {
-      let logger = createLoggers('info', { prefixes: { } }).get('nsp')
+      let logger = createLoggers('info', {prefixes: {}}).get('nsp')
       logger.info('i');
       infoStub.calledOnce.should.be.ok();
       infoStub.firstCall.args[0].should
