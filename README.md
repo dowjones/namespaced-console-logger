@@ -28,8 +28,21 @@ const logger = loggers.get('namespace');
 logger.info('Hello %s!', 'world');
 ```
 
-- `createLoggers()` takes a minimum logging `level`, which is one of: `['info', 'warn', 'error']` and defaults to `info`. For example if you select `warn`, all `info` logs will be ignored. `warn` and `error` logs will be displayed.
-
+- `createLoggers()` 
+  - takes a minimum logging `level`, which is one of: `['info', 'warn', 'error']` and defaults to `info`. For example if you select `warn`, all `info` logs will be ignored. `warn` and `error` logs will be displayed.
+  - takes an options parameter:
+  
+    Example input:
+    ```
+    {
+      prefixes: [ 'prefix1', 'prefix2' ]
+    }
+    ```
+    Example output:
+    ```
+    2015-08-10T20:09:20.526Z prefix1 prefix2 (namespace) INFO: Hello world!
+    ```
+    
 
 ## License
 
