@@ -94,4 +94,46 @@ describe('namespaced-console-logger', () => {
       errorStub.calledOnce.should.be.ok();
     });
   });
+
+  describe('with prefixes', () => {
+    it('should info log with timestamp and namespace and single prefixe', () => {
+      let logger = createLoggers('info', {prefixes: [ 'prefix' ]}).get('nsp')
+      logger.info('i');
+      infoStub.calledOnce.should.be.ok();
+      infoStub.firstCall.args[0].should
+        .equal('1970-01-01T00:00:00.000Z prefix (nsp) INFO: i');
+    });
+
+    it('should info log with timestamp and namespace and multiple prefixes', () => {
+      let logger = createLoggers('info', {prefixes: [ 'prefix1', 'prefixes2' ]}).get('nsp')
+      logger.info('i');
+      infoStub.calledOnce.should.be.ok();
+      infoStub.firstCall.args[0].should
+        .equal('1970-01-01T00:00:00.000Z prefix1 prefixes2 (nsp) INFO: i');
+    });
+
+    it('should info log with timestamp and namespace and no options', () => {
+      let logger = createLoggers().get('nsp')
+      logger.info('i');
+      infoStub.calledOnce.should.be.ok();
+      infoStub.firstCall.args[0].should
+        .equal('1970-01-01T00:00:00.000Z (nsp) INFO: i');
+    });
+
+    it('should info log with timestamp and namespace and no prefixes', () => {
+      let logger = createLoggers('info', {}).get('nsp')
+      logger.info('i');
+      infoStub.calledOnce.should.be.ok();
+      infoStub.firstCall.args[0].should
+        .equal('1970-01-01T00:00:00.000Z (nsp) INFO: i');
+    });
+
+    it('should info log with timestamp and namespace and invalid prefixes', () => {
+      let logger = createLoggers('info', {prefixes: {}}).get('nsp')
+      logger.info('i');
+      infoStub.calledOnce.should.be.ok();
+      infoStub.firstCall.args[0].should
+        .equal('1970-01-01T00:00:00.000Z (nsp) INFO: i');
+    });
+  });
 });
