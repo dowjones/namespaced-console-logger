@@ -10,37 +10,37 @@ const allLevels = ['error', 'warn', 'info'];
  *
  * @param {String} level (info|warn|error) minimum logging level
  * @param {String} format format meta data
- * @param {Object} data meta data
+ * @param {Object} meta meta data
  */
 
-export default function (level = 'info', format, data) {
+export default function (level = 'info', format, meta) {
   format = format || '${timestamp} (${namespace}) ${level}:';
-  data = data || {};
-  const parsed = template.parse(format);
+  meta = meta || {};
+  const compiledFunc = template(format);
   const levelIndex = allLevels.indexOf(level) + 1;
   const get = createGet(
     allLevels.slice(0, levelIndex),
     allLevels.slice(levelIndex),
-    parsed,
-    data);
+    compiledFunc,
+    meta);
   return {get};
 }
 
-function createGet(enabled, disabled, parsed, data) {
+function createGet(enabled, disabled, compiledFunc, meta) {
   return function (namespace) {
     const logger = {};
-    enabled.forEach(level => logger[level] = create(namespace, level, parsed, data));
+    enabled.forEach(level => logger[level] = create(namespace, level, compiledFunc, meta));
     disabled.forEach(level => logger[level] = noop);
     return logger;
   };
 }
 
-function create(namespace, level, parsed, data) {
+function create(namespace, level, compiledFunc, meta) {
   return function () {
-    data.namespace = namespace;
-    data.level = level.toUpperCase();
-    data.timestamp = new Date().toISOString();
-    const prefix = template.resolve(parsed, data);
+    meta.namespace = namespace;
+    meta.level = level.toUpperCase();
+    meta.timestamp = new Date().toISOString();
+    const prefix = compiledFunc(meta);
     const args = slice.call(arguments);
     if (typeof args[0] === 'string') args[0] = prefix + ' ' + args[0];
     else args.unshift(prefix);

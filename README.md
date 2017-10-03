@@ -30,6 +30,16 @@ logger.info('Hello %s!', 'world');
 
 - `createLoggers()` takes a minimum logging `level`, which is one of: `['info', 'warn', 'error']` and defaults to `info`. For example if you select `warn`, all `info` logs will be ignored. `warn` and `error` logs will be displayed.
 
+Support for formatting and arbitrary metadata
+```js
+import createLoggers from 'namespaced-console-logger';
+
+const loggers = createLoggers('info', '${timestamp} ${hostname} (${namespace}) ${level}:', { hostname: 'machinename' });
+const logger = loggers.get('namespace');
+
+//2015-08-10T20:09:20.526Z machinename (namespace) INFO: Hello world!
+logger.info('Hello %s!', 'world');
+```
 
 ## License
 
