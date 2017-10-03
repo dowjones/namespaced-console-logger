@@ -14,7 +14,7 @@ const allLevels = ['error', 'warn', 'info'];
  */
 
 export default function (level = 'info', format, meta) {
-  format = format || '${timestamp} (${namespace}) ${level}:';
+  format = format || '{{timestamp}} ({{namespace}}) {{level}}:';
   meta = meta || {};
   const compiledFunc = template(format);
   const levelIndex = allLevels.indexOf(level) + 1;

@@ -34,10 +34,10 @@ Support for formatting and arbitrary metadata
 ```js
 import createLoggers from 'namespaced-console-logger';
 
-const loggers = createLoggers('info', '${timestamp} ${hostname} (${namespace}) ${level}:', { hostname: 'machinename' });
+const loggers = createLoggers('info', '{{timestamp}} {{hostname}} {{calculatedValue}} ({{namespace}}) {{level}}:', { hostname: 'machinename', calculatedValue: () =>  { return 1 + 2; } });
 const logger = loggers.get('namespace');
 
-//2015-08-10T20:09:20.526Z machinename (namespace) INFO: Hello world!
+//2015-08-10T20:09:20.526Z machinename 3 (namespace) INFO: Hello world!
 logger.info('Hello %s!', 'world');
 ```
 
