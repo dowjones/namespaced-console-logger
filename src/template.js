@@ -2,10 +2,12 @@
  * Parse format string and return object
  *
  * @param {String} format format string
+ * @param {Object} meta meta data
  */
-export default function (format) {
+export default function (format, meta) {
   const regex = /\{\{(\w+)\}\}/g;
   const result = [];
+  meta = meta || {};
 
   if (!format || (typeof format !== 'string' &&  !(format instanceof String))) {
     return new Function('data', 'return \'\';');
@@ -18,8 +20,7 @@ export default function (format) {
     if (index + length < match.index) {
       result.push('\'' + format.substring(index + length, match.index) + '\'');
     }
-    //fast check for a function: !!(object && object.constructor && object.call && object.apply) 
-    result.push('((!!(data.' + match[1] + ' && data.' + match[1] + '.constructor && data.' + match[1] + '.call && data.' + match[1] + '.apply) ? data.' + match[1] + '() : data.' + match[1] + ') || \'' + match[0] + '\')');
+    result.push('(' + (isFunction(meta[match[1]]) ? ('data.' + match[1] + '()') : ('data.' + match[1])) + ' || \'' + match[0] + '\')');
 
     index = match.index;
     length = match[0].length;
@@ -30,4 +31,8 @@ export default function (format) {
 
   const funcBody = 'data = data || {}; return ' + result.join(' + ') + ';';
   return new Function('data', funcBody);
+}
+
+function isFunction(object) {
+  return !!(object && object.constructor && object.call && object.apply);
 }

@@ -8,7 +8,7 @@ describe('template', () => {
       return 1 + 2;
     };
     const data = {timestamp: new Date().toISOString(), calculatedValue: func, namespace: 'class', level: 'INFO', data: 'Hello World'};
-    const compiled = template(format);
+    const compiled = template(format, data);
     const str = compiled(data);
     str.should.be.equal(data.timestamp + ' ' + func() + ' (' + data.namespace + ') ' + data.level + ': ' + data.data);
   });
@@ -16,7 +16,7 @@ describe('template', () => {
   it('should replace all variables if format is instanceof String', () => {
     const format = new String('{{timestamp}} ({{namespace}}) {{level}}: {{data}}');
     const data = {timestamp: new Date().toISOString(), namespace: 'class', level: 'INFO', data: 'Hello World'};
-    const compiled = template(format);
+    const compiled = template(format, data);
     const str = compiled(data);
     str.should.be.equal(data.timestamp + ' (' + data.namespace + ') ' + data.level + ': ' + data.data);
   });
@@ -24,7 +24,7 @@ describe('template', () => {
   it('should keep placeholder if variable is undefined', () => {
     const format = '{{timestamp}} ({{namespace}}) {{level}}: {{data}}';
     const data = {timestamp: new Date().toISOString(), level: 'INFO', data: 'Hello World'};
-    const compiled = template(format);
+    const compiled = template(format, data);
     const str = compiled(data);
     str.should.be.equal(data.timestamp + ' ({{namespace}}) ' + data.level + ': ' + data.data);
   });
@@ -32,7 +32,7 @@ describe('template', () => {
   it('should preserve trailing whitespace', () => {
     const format = 'Message: {{timestamp}} ({{namespace}}) {{level}}: ';
     const data = {timestamp: new Date().toISOString(), namespace: 'class', level: 'INFO'};
-    const compiled = template(format);
+    const compiled = template(format, data);
     const str = compiled(data);
     str.should.be.equal('Message: ' + data.timestamp + ' (' + data.namespace + ') ' + data.level + ': ');    
   });
@@ -40,7 +40,7 @@ describe('template', () => {
   it('should return format string if no literals', () => {
     const format = 'Message: {{ Hellow world}';
     const data = {timestamp: new Date().toISOString(), namespace: 'class', level: 'INFO'};
-    const compiled = template(format);
+    const compiled = template(format, data);
 
     let str = compiled(data);
     str.should.be.equal('Message: {{ Hellow world}');   

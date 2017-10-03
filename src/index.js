@@ -16,7 +16,7 @@ const allLevels = ['error', 'warn', 'info'];
 export default function (level = 'info', format, meta) {
   format = format || '{{timestamp}} ({{namespace}}) {{level}}:';
   meta = meta || {};
-  const compiledFunc = template(format);
+  const compiledFunc = template(format, meta);
   const levelIndex = allLevels.indexOf(level) + 1;
   const get = createGet(
     allLevels.slice(0, levelIndex),
