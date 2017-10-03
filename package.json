@@ -27,7 +27,7 @@
   "devDependencies": {
     "babel": "^5.6.23",
     "babel-eslint": "^4.1.8",
-+   "eslint": "^1.10.3",
+    "eslint": "^1.10.3",
     "istanbul": "^0.3.17",
     "mocha": "^2.2.5",
     "should": "^7.0.2",
