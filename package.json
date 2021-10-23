@@ -13,6 +13,7 @@
     "url": "git://github.com/dowjones/namespaced-console-logger.git"
   },
   "main": "lib/index",
+  "types": "types.d.ts",
   "author": "nemtsov@gmail.com",
   "license": "MIT",
   "scripts": {
